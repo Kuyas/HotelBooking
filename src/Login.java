@@ -1,4 +1,5 @@
 import java.awt.event.*;
+import java.security.NoSuchAlgorithmException;
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
@@ -121,18 +122,24 @@ public class Login extends JFrame implements ActionListener {
         //f.show();
     }
 
-    // if the vutton is pressed
+    // if the button is pressed
     public void actionPerformed(ActionEvent e)
     {
         String s = e.getActionCommand();
         if (s.equals("Sign In")) {
             labelWrongCredentials.setText("Sign In");
-            /*
-            if (validateUser.validate(userNameField.getText(), passwordField.getText())
-            {
-              // Go to Home Frame
-            }
-            */
+            String password = String.copyValueOf(passwordField.getPassword());
+            
+            try {
+				if (validateUser.validate(userNameField.getText(), password ))
+				{
+					System.out.println("FUCK YEAH");
+				}
+			} catch (NoSuchAlgorithmException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+            
         }
         if (s.equals("Sign Up"))
         {
