@@ -203,16 +203,22 @@ public class Register extends JFrame implements ActionListener {
         String s = e.getActionCommand();
         if (s.equals("Sign Up")) {
             dateOfBirth = ((JTextField)(calenderField.getDateEditor().getUiComponent())).getText();//Go Backend and Initiate new Frame
-            /*
-            if (ValidateUser.validRegister(userNameField.getText()))
+            if (ValidateUser.checkEmail(emailField.getText()))
             {
-              AddUser.add(fullNameField.getText(), addressField.getText(), emailField.getText(), userNameField.getText(), String.copyValueOf(passwordField.getPassword()), dateOfBirth);
+              if (ValidateUser.validate(userNameField.getText()))
+              {
+                addUser.add(fullNameField.getText(), addressField.getText(), emailField.getText(), userNameField.getText(), String.copyValueOf(passwordField.getPassword()), dateOfBirth);
+              }
+              else
+              {
+                labelWrongCredentials.setText("Username already exists");
+              }
             }
             else
             {
-              labelWrongCredentials.setText("Username Already Exists")
+              labelWrongCredentials.setText("Email ID is Incorrect");
             }
-            */
+
         }
         if (s.equals("Back")){
           frmRegister.setVisible(false);

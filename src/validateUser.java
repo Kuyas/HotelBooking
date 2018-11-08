@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class validateUser {
 
-	static boolean validateLogin(String username, String password) throws NoSuchAlgorithmException {
+	static boolean validate(String username, String password) throws NoSuchAlgorithmException {
 
 		if(username.isEmpty() || password.isEmpty()) {
 			return false;
@@ -45,4 +45,49 @@ public class validateUser {
 		return false;
 	}
 
+	static boolean validate(String username) {
+		if(username.isEmpty()) {
+			return false;
+		}
+		mysqlconnect my = new mysqlconnect();
+		Connection c = my.connectToDB();
+		try {
+				Statement st = c.createStatement();
+				ResultSet rs = st.executeQuery("SELECT user_id from users WHERE username ='"+username+"'");
+				while(rs.next()) {
+					String userid = rs.getString(1);
+					int uid = Integer.parseInt(userid);
+					if(uid > -1) {
+						return true;
+					}else {
+						return false;
+					}
+				}
+			}catch(Exception e) {
+			System.out.println(e);
+			}
+
+		return false;
+
+	}
+
+	static boolean checkEmail(String email) {
+		if(email.isEmpty())
+		{
+			return false;
+		}
+		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                            "[a-zA-Z0-9_+&*-]+)*@" +
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                            "A-Z]{2,7}$";
+		Pattern pat = Pattern.compile(emailRegex);
+		if (pat.matcher(email).matches())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }
