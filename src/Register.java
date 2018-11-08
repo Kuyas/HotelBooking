@@ -207,9 +207,9 @@ public class Register extends JFrame implements ActionListener {
             
             boolean testValidity;
             try {
-    			 testValidity = validateUser.validate(userNameField.getText(), String.copyValueOf(passwordField.getPassword()));
+    			 testValidity = validateUser.validate(userNameField.getText());
 //    			System.out.println(testValidity);
-    		} catch (NoSuchAlgorithmException e1) {
+    		} catch (Exception e1) {
     			e1.printStackTrace();
     			testValidity = false;
     		}
