@@ -7,9 +7,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class validateUser {
-	
-	static boolean validate(String username, String password) throws NoSuchAlgorithmException {
-		
+
+	static boolean validateLogin(String username, String password) throws NoSuchAlgorithmException {
+
 		if(username.isEmpty() || password.isEmpty()) {
 			return false;
 		}
@@ -30,15 +30,15 @@ public class validateUser {
 				String pass = rs.getString(1);
 				if(pass.equals(password)) {
 					return true;
-			
+
 				}else {
 					return false;
-				}			
+				}
 			}
 			}catch(Exception e) {
 			System.out.println(e);
 			}
-			
+
 		}else {
 			return false;
 		}
