@@ -1,8 +1,16 @@
 import java.awt.event.*;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 import com.toedter.calendar.JDateChooser;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class Register extends JFrame implements ActionListener {
     // JTextField
@@ -168,19 +176,19 @@ public class Register extends JFrame implements ActionListener {
 
         panelTop.add(labelHeading);
 
-        panelBottom.add(passwordField);
-        panelBottom.add(labelFullName);
+        panelBottom.add(passwordField); //PASSWORD FIELD
+        panelBottom.add(labelFullName); 
         panelBottom.add(btnSignUp);
-        panelBottom.add(fullNameField);
+        panelBottom.add(fullNameField); //NAME FIELD
         panelBottom.add(labelPassword);
-        panelBottom.add(labelWrongCredentials);
+        panelBottom.add(labelWrongCredentials); 
         panelBottom.add(labelDateOfBirth);
-        panelBottom.add(addressField);
-        panelBottom.add(labelAddress);
+        panelBottom.add(addressField); //ADDRESS FIELD
+        panelBottom.add(labelAddress); 
         panelBottom.add(labelEmail);
-        panelBottom.add(emailField);
+        panelBottom.add(emailField); //EMAIL FIELD
         panelBottom.add(labelUserName);
-        panelBottom.add(userNameField);
+        panelBottom.add(userNameField); //USERNAME FIELD
 
         // set the size of frame
 
@@ -188,15 +196,62 @@ public class Register extends JFrame implements ActionListener {
         //f.show();
     }
 
-    // if the vutton is pressed
+    // if the button is pressed
     public void actionPerformed(ActionEvent e)
     {
         String s = e.getActionCommand();
         if (s.equals("Sign Up")) {
             labelWrongCredentials.setText("Sign In");
             dateOfBirth = ((JTextField)(calenderField.getDateEditor().getUiComponent())).getText();//Go Backend and Initiate new Frame
-            System.out.println(dateOfBirth);
+            //System.out.println(dateOfBirth); //DOB FIELD
+            
+            boolean testValidity;
+            try {
+    			 testValidity = validateUser.validate(userNameField.getText(), String.copyValueOf(passwordField.getPassword()));
+//    			System.out.println(testValidity);
+    		} catch (NoSuchAlgorithmException e1) {
+    			e1.printStackTrace();
+    			testValidity = false;
+    		}
+            if(testValidity) {
+            	System.out.println("User Exists, Dont Register");
+            }else {
+//            	System.out.println("User Not Exists");
+            	
+//            	Enter into database
+            	mysqlconnect my = new mysqlconnect();
+        		Connection c = my.connectToDB();
+        		try {
+        			String name = fullNameField.getText();
+        			//dateOfBirth;
+        			String address = addressField.getText();
+        			String emailAddress = emailField.getText();
+        			String userName = userNameField.getText();
+        			String password = String.copyValueOf(passwordField.getPassword());
+    				Statement st = c.createStatement();
+    			try {
+    				MessageDigest md = MessageDigest.getInstance("SHA-256");
+    				// Change this to UTF-16 if needed
+    				md.update(password.getBytes(StandardCharsets.UTF_8));
+    				byte[] digest = md.digest();
+
+    				String hex = String.format("%064x", new BigInteger(1, digest));
+    				password = hex;
+    			}catch(Exception e1){
+    				e1.printStackTrace();
+    			}
+    				int rs = st.executeUpdate("INSERT INTO `users`(`name`, `dob`, `address`, `email`, `username`, `password`) "
+    						+ "VALUES ('"+ name +"','" + dateOfBirth +"', '"+ address +"','" + emailAddress+"','"+userName+"','"+password+"')");
+    				System.out.println(rs);
+    			} catch (SQLException e1) {
+    				// TODO Auto-generated catch block
+    				System.out.println("FILL ALL THE FUCKING DETAILS");
+    				e1.printStackTrace();
+    			}
+            }
+
         }
+        
     }
 
 
