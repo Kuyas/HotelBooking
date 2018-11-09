@@ -188,7 +188,7 @@ public class Register extends JFrame implements ActionListener {
         //f.show();
     }
 
-    // if the vutton is pressed
+    // if the button is pressed
     public void actionPerformed(ActionEvent e)
     {
         String s = e.getActionCommand();

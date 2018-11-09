@@ -14,7 +14,7 @@ public class Login extends JFrame implements ActionListener {
     static JPanel panelTop;
     static JPanel panelBottom;
 
-    // labelHeading to diaplay text
+    // labelHeading to display text
     static JLabel labelHeading;
     static JLabel labelPassword;
     static JLabel labelUserName;

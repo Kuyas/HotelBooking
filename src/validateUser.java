@@ -44,5 +44,30 @@ public class validateUser {
 		}
 		return false;
 	}
-
+	
+	static boolean validate(String username) {
+		if(username.isEmpty()) {
+			return false;
+		}
+		mysqlconnect my = new mysqlconnect();
+		Connection c = my.connectToDB();
+		try {
+				Statement st = c.createStatement();
+				ResultSet rs = st.executeQuery("SELECT user_id from users WHERE username ='"+username+"'");
+				while(rs.next()) {
+					String userid = rs.getString(1);
+					int uid = Integer.parseInt(userid);
+					if(uid > -1) {
+						return true;
+					}else {
+						return false;
+					}			
+				}
+			}catch(Exception e) {
+			System.out.println(e);
+			}
+		
+		return false;
+		
+	}
 }
