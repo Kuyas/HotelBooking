@@ -55,7 +55,7 @@ public class Login extends JFrame implements ActionListener {
 
         labelWrongCredentials = new JLabel("");
         //labelWrongCredentials.setBounds(141,133,175,14);
-        labelWrongCredentials.setBounds(282,266,200,50);
+        labelWrongCredentials.setBounds(50,266,800,50);
         labelWrongCredentials.setForeground(new Color(255,0,0));
         labelWrongCredentials.setFont(new Font("Tahoma",Font.BOLD,28));
 
@@ -127,17 +127,31 @@ public class Login extends JFrame implements ActionListener {
         String s = e.getActionCommand();
         if (s.equals("Sign In")) {
             labelWrongCredentials.setText("Sign In");
+
+            String password = String.copyValueOf(passwordField.getPassword());
             /*
-            if (validateUser.validate(userNameField.getText(), passwordField.getText())
+            try
             {
-              // Go to Home Frame
-            }
+              if (validateUser.validateLogin(userNameField.getText(), password ))
+              {
+                //System.out.println("FUCK YEAH");
+                // Go TO Main Page
+              }
+              else
+              {
+                labelWrongCredentials.setText("Username or Password entered is Incorrect.");
+              }
+      			} catch (NoSuchAlgorithmException e1)
+            {
+      				e1.printStackTrace();
+      			}
             */
+
         }
         if (s.equals("Sign Up"))
         {
             frmLogin.setVisible(false);
-            Register.main();
+            Register.main(new  String[] {"a", "b", "c"});
         }
     }
 

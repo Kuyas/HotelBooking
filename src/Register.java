@@ -13,7 +13,7 @@ public class Register extends JFrame implements ActionListener {
     static JPanel contentPane;
     static String dateOfBirth;
 
-    static JFrame frmLogin;
+    static JFrame frmRegister;
     static JPasswordField passwordField;
     // JButton
     static JDateChooser calenderField;
@@ -21,6 +21,7 @@ public class Register extends JFrame implements ActionListener {
     static JTextArea addressField;
 
     static JButton btnSignUp;
+    static JButton back;
     static JPanel panelTop;
 
     static JPanel panelBottom;
@@ -41,20 +42,20 @@ public class Register extends JFrame implements ActionListener {
     }
 
     // main class
-    public static void main()
+    public static void main(String[] args)
     {
         // create a new frame to stor text field and button
-        frmLogin = new JFrame();
-        frmLogin.setTitle("Hotel Booking");
-        //frmLogin.setResizable(false);
-        frmLogin.setBounds(100,100,900,600);
+        frmRegister = new JFrame();
+        frmRegister.setTitle("Hotel Booking");
+        //frmRegister.setResizable(false);
+        frmRegister.setBounds(100,100,900,600);
 
-        //frmLogin.pack(); // Important line!!!
-        //frmLogin.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //frmRegister.pack(); // Important line!!!
+        //frmRegister.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        //frmLogin.setUndecorated(true);
-        frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frmLogin.getContentPane().setLayout(null);
+        //frmRegister.setUndecorated(true);
+        frmRegister.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frmRegister.getContentPane().setLayout(null);
         // create a labelHeading to display text
         labelFullName = new JLabel("Full Name:");
         labelFullName.setForeground(new Color(255,250,250));
@@ -81,7 +82,7 @@ public class Register extends JFrame implements ActionListener {
 
         labelWrongCredentials = new JLabel("");
         //labelWrongCredentials.setBounds(141,133,175,14);
-        labelWrongCredentials.setBounds(282,380,200,50);
+        labelWrongCredentials.setBounds(50,380,800,50);
         labelWrongCredentials.setForeground(new Color(255,0,0));
         labelWrongCredentials.setFont(new Font("Tahoma",Font.BOLD,28));
 
@@ -92,16 +93,16 @@ public class Register extends JFrame implements ActionListener {
         labelHeading.setFont(new Font("Tahoma",Font.BOLD,30));
 
         panelTop = new  JPanel();
-        //panelTop.setBounds(0,0,frmLogin.getContentPane().getSize().width,46);
+        //panelTop.setBounds(0,0,frmRegister.getContentPane().getSize().width,46);
         panelTop.setBounds(0,0,900,60);
         panelTop.setBackground(new Color(255,165,0));
-        frmLogin.getContentPane().add(panelTop);
+        frmRegister.getContentPane().add(panelTop);
         panelTop.setLayout(null);
 
         panelBottom = new JPanel();
         panelBottom.setBounds(0,60,900,540);
         panelBottom.setBackground(new Color(112,128,144));
-        frmLogin.getContentPane().add(panelBottom);
+        frmRegister.getContentPane().add(panelBottom);
         panelBottom.setLayout(null);
         // create a new button
         btnSignUp = new JButton("Sign Up");
@@ -109,6 +110,12 @@ public class Register extends JFrame implements ActionListener {
         btnSignUp.setFont(new Font("Tahoma",Font.BOLD,30));
         //btnSignUp.setBounds(227,158,89,23);
         btnSignUp.setBounds(454,450,200,50);
+
+        back = new JButton("Back");
+        back.setBackground(new Color(255,255,255));
+        back.setFont(new Font("Tahoma",Font.BOLD,30));
+        //btnSignUp.setBounds(227,158,89,23);
+        back.setBounds(246,450,200,50);
 
         fullNameField = new JTextField();
         fullNameField.setFont(new Font("Tahoma",Font.PLAIN,28));
@@ -150,7 +157,7 @@ public class Register extends JFrame implements ActionListener {
 
         contentPane = new JPanel();
     		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-    		//frmLogin.setContentPane(contentPane);
+    		//frmRegister.setContentPane(contentPane);
     		//contentPane.setLayout(null);
         calenderField = new JDateChooser();
 
@@ -163,6 +170,7 @@ public class Register extends JFrame implements ActionListener {
         Register te = new Register();
 
         btnSignUp.addActionListener(te);
+        back.addActionListener(te);
         calenderField.getCalendarButton().addActionListener(te);
 
 
@@ -181,10 +189,11 @@ public class Register extends JFrame implements ActionListener {
         panelBottom.add(emailField);
         panelBottom.add(labelUserName);
         panelBottom.add(userNameField);
+        panelBottom.add(back);
 
         // set the size of frame
 
-        frmLogin.setVisible(true);
+        frmRegister.setVisible(true);
         //f.show();
     }
 
@@ -193,9 +202,21 @@ public class Register extends JFrame implements ActionListener {
     {
         String s = e.getActionCommand();
         if (s.equals("Sign Up")) {
-            labelWrongCredentials.setText("Sign In");
             dateOfBirth = ((JTextField)(calenderField.getDateEditor().getUiComponent())).getText();//Go Backend and Initiate new Frame
-            System.out.println(dateOfBirth);
+            /*
+            if (ValidateUser.validRegister(userNameField.getText()))
+            {
+              AddUser.add(fullNameField.getText(), addressField.getText(), emailField.getText(), userNameField.getText(), String.copyValueOf(passwordField.getPassword()), dateOfBirth);
+            }
+            else
+            {
+              labelWrongCredentials.setText("Username Already Exists")
+            }
+            */
+        }
+        if (s.equals("Back")){
+          frmRegister.setVisible(false);
+          Login.main(new  String[] {"a", "b", "c"});
         }
     }
 
