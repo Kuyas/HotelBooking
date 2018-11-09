@@ -32,8 +32,10 @@ public class addUser
             e1.printStackTrace();
           }
       int rs = st.executeUpdate("INSERT INTO `users`(`name`, `dob`, `address`, `email`, `username`, `password`) "
-          + "VALUES ('"+ name +"','" + dateOfBirth +"', '"+ address +"','" + emailAddress+"','"+userName+"','"+password+"')");
-      System.out.println(rs);
+          + "VALUES ('"+ name +"','" + dob +"', '"+ address +"','" + emailAddress+"','"+userName+"','"+password+"')");
+	      if(rs == 1) {
+	    	  System.out.println("Sign up succesful");
+	      }
       }
       catch (SQLException e1) {
       // TODO Auto-generated catch block
