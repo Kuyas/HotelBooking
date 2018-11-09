@@ -5,10 +5,11 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.regex.Pattern;
 
 public class validateUser {
 
-	static boolean validateLogin(String username, String password) throws NoSuchAlgorithmException {
+	static boolean validate(String username, String password) throws NoSuchAlgorithmException {
 
 		if(username.isEmpty() || password.isEmpty()) {
 			return false;
@@ -44,7 +45,6 @@ public class validateUser {
 		}
 		return false;
 	}
-	
 	static boolean validate(String username) {
 		if(username.isEmpty()) {
 			return false;
@@ -68,6 +68,25 @@ public class validateUser {
 			}
 		
 		return false;
-		
+	}
+
+	static boolean checkEmail(String email) {
+		if(email.isEmpty())
+		{
+			return false;
+		}
+		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                            "[a-zA-Z0-9_+&*-]+)*@" +
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                            "A-Z]{2,7}$";
+		Pattern pat = Pattern.compile(emailRegex);
+		if (pat.matcher(email).matches())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }

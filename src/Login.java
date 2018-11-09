@@ -1,4 +1,5 @@
 import java.awt.event.*;
+import java.security.NoSuchAlgorithmException;
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
@@ -129,10 +130,10 @@ public class Login extends JFrame implements ActionListener {
             labelWrongCredentials.setText("Sign In");
 
             String password = String.copyValueOf(passwordField.getPassword());
-            /*
+
             try
             {
-              if (validateUser.validateLogin(userNameField.getText(), password ))
+              if (validateUser.validate(userNameField.getText(), password ))
               {
                 //System.out.println("FUCK YEAH");
                 // Go TO Main Page
@@ -145,7 +146,7 @@ public class Login extends JFrame implements ActionListener {
             {
       				e1.printStackTrace();
       			}
-            */
+
 
         }
         if (s.equals("Sign Up"))
