@@ -1,18 +1,20 @@
 import java.awt.event.*;
+import java.sql.Date;
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 import com.toedter.calendar.JDateChooser;
-
+import java.sql.Date;
 public class Register extends JFrame implements ActionListener {
     // JTextField
     static JTextField fullNameField;
     static JTextField emailField;
     static JTextField userNameField;
+    static String password;
     // JFrame
     static JPanel contentPane;
     static String dateOfBirth;
-
+    static String address;
     static JFrame frmRegister;
     static JPasswordField passwordField;
     // JButton
@@ -21,7 +23,7 @@ public class Register extends JFrame implements ActionListener {
     static JTextArea addressField;
 
     static JButton btnSignUp;
-    static JButton back;
+    static JButton btnBack;
     static JPanel panelTop;
 
     static JPanel panelBottom;
@@ -95,7 +97,7 @@ public class Register extends JFrame implements ActionListener {
         panelTop = new  JPanel();
         //panelTop.setBounds(0,0,frmRegister.getContentPane().getSize().width,46);
         panelTop.setBounds(0,0,900,60);
-        panelTop.setBackground(new Color(255,165,0));
+        panelTop.setBackground(new Color(0,0,0));
         frmRegister.getContentPane().add(panelTop);
         panelTop.setLayout(null);
 
@@ -111,11 +113,11 @@ public class Register extends JFrame implements ActionListener {
         //btnSignUp.setBounds(227,158,89,23);
         btnSignUp.setBounds(454,450,200,50);
 
-        back = new JButton("Back");
-        back.setBackground(new Color(255,255,255));
-        back.setFont(new Font("Tahoma",Font.BOLD,30));
+        btnBack = new JButton("Back");
+        btnBack.setBackground(new Color(255,255,255));
+        btnBack.setFont(new Font("Tahoma",Font.BOLD,30));
         //btnSignUp.setBounds(227,158,89,23);
-        back.setBounds(246,450,200,50);
+        btnBack.setBounds(246,450,200,50);
 
         fullNameField = new JTextField();
         fullNameField.setFont(new Font("Tahoma",Font.PLAIN,28));
@@ -170,8 +172,8 @@ public class Register extends JFrame implements ActionListener {
         Register te = new Register();
 
         btnSignUp.addActionListener(te);
-        back.addActionListener(te);
-        calenderField.getCalendarButton().addActionListener(te);
+        btnBack.addActionListener(te);
+        //calenderField.getCalendarButton().addActionListener(te);
 
 
         panelTop.add(labelHeading);
@@ -189,7 +191,7 @@ public class Register extends JFrame implements ActionListener {
         panelBottom.add(emailField);
         panelBottom.add(labelUserName);
         panelBottom.add(userNameField);
-        panelBottom.add(back);
+        panelBottom.add(btnBack);
 
         // set the size of frame
 
@@ -197,32 +199,53 @@ public class Register extends JFrame implements ActionListener {
         //f.show();
     }
 
-    // if the button is pressed
+    // if the vutton is pressed
     public void actionPerformed(ActionEvent e)
     {
         String s = e.getActionCommand();
-        if (s.equals("Sign Up")) {
-            dateOfBirth = ((JTextField)(calenderField.getDateEditor().getUiComponent())).getText();//Go Backend and Initiate new Frame
-            if (validateUser.checkEmail(emailField.getText()))
-            {
-              if (validateUser.validate(userNameField.getText()))
-              {
-                addUser.add(fullNameField.getText(), addressField.getText(), emailField.getText(), userNameField.getText(), String.copyValueOf(passwordField.getPassword()), dateOfBirth);
-              }
-              else
-              {
-                labelWrongCredentials.setText("Username already exists");
-              }
-            }
-            else
-            {
-              labelWrongCredentials.setText("Email ID is Incorrect");
-            }
-
-        }
+        String dateOfBirth = ((JTextField)(calenderField.getDateEditor().getUiComponent())).getText();//Go Backend and Initiate new Frame
+        String password = String.copyValueOf(passwordField.getPassword());
+        long ab = System.currentTimeMillis();
+		Date start = Date.valueOf(dateOfBirth);
         if (s.equals("Back")){
           frmRegister.setVisible(false);
           Login.main(new  String[] {"a", "b", "c"});
+        }
+        if (fullNameField.getText().isEmpty() || password.isEmpty() || addressField.getText().isEmpty() || emailField.getText().isEmpty() || userNameField.getText().isEmpty() || dateOfBirth.isEmpty())
+        {
+          labelWrongCredentials.setText("Fill in all the fields!!");
+        }
+        else
+        {
+        	if(ab-start.getTime()>0)
+        	{
+        		if (s.equals("Sign Up")) {
+                    
+                    if (validateUser.checkEmail(emailField.getText()))
+                    {
+                      if (validateUser.validate(userNameField.getText()))
+                      {
+                        addUser.add(fullNameField.getText(), addressField.getText(), emailField.getText(), userNameField.getText(), String.copyValueOf(passwordField.getPassword()), dateOfBirth);
+                        frmRegister.setVisible(false);
+                        HomePage.main(new String[] {userNameField.getText()});
+                      }
+                      else
+                      {
+                        labelWrongCredentials.setText("Username already exists");
+                      }
+                    }
+                    else
+                    {
+                      labelWrongCredentials.setText("Email ID is Incorrect");
+                    }
+                    labelWrongCredentials.setText(" ");
+                 
+        	}           
+          }
+        	else
+        	{
+        		labelWrongCredentials.setText("Invalid DOB");
+        	}
         }
     }
 

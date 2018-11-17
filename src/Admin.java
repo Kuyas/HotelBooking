@@ -2,6 +2,8 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
+import java.net.*;
+import  java.io.*;
 
 public class Admin extends JFrame implements ActionListener {
     // JTextField
@@ -57,32 +59,32 @@ public class Admin extends JFrame implements ActionListener {
         btnViewHotels.setBackground(new Color(255,255,255));
         btnViewHotels.setFont(new Font("Tahoma",Font.BOLD,30));
         //btnEditHotels.setBounds(85,158,89,23);
-        btnViewHotels.setBounds(700,10,200,100);
+        btnViewHotels.setBounds(740,0,150,108);
 
         btnViewBookings = new JButton("<html>"+"View<br>Bookings"+"</html>");
         btnViewBookings.setBackground(new Color(255,255,255));
         btnViewBookings.setFont(new Font("Tahoma",Font.BOLD,30));
         //btnAddHotels.setBounds(227,158,89,23);
-        btnViewBookings.setBounds(700,115,200,100);
+        btnViewBookings.setBounds(740,100,150,108);
 
 
-        btnEditHotels = new JButton("<html>"+"Edit<br>Hotels"+"</html>");
+        btnEditHotels = new JButton("<html>"+"View<br>Users"+"</html>");
         btnEditHotels.setBackground(new Color(255,255,255));
         btnEditHotels.setFont(new Font("Tahoma",Font.BOLD,30));
         //btnEditHotels.setBounds(85,158,89,23);
-        btnEditHotels.setBounds(700,220,200,100);
+        btnEditHotels.setBounds(740,200,150,108);
 
-        btnAddHotels = new JButton("<html>"+"Add<br>Hotels"+"</html>");
+        btnAddHotels = new JButton("<html>"+"View<br>Ratings"+"</html>");
         btnAddHotels.setBackground(new Color(255,255,255));
         btnAddHotels.setFont(new Font("Tahoma",Font.BOLD,30));
         //btnAddHotels.setBounds(227,158,89,23);
-        btnAddHotels.setBounds(700,325,200,100);
+        btnAddHotels.setBounds(740,300,150,108);
 
         btnSignOut = new JButton("<html>"+"Sign<br>Out"+"</html>");
         btnSignOut.setBackground(new Color(255,255,255));
         btnSignOut.setFont(new Font("Tahoma",Font.BOLD,30));
         //btnAddHotels.setBounds(227,158,89,23);
-        btnSignOut.setBounds(700,430,200,100);
+        btnSignOut.setBounds(740,400,150,108);
 
         // create a object of the text class
         Admin te = new Admin();
@@ -115,92 +117,33 @@ public class Admin extends JFrame implements ActionListener {
     {
         String s = e.getActionCommand();
         if (s.equals("<html>"+"View<br>Bookings"+"</html>")) {
-
-            /*
-
-            try
-            {
-              if (validateUser.validate(userNameField.getText(), password ))
-              {
-                MainPage.main(new String[] {userNameField.getText()});
-              }
-              else
-              {
-                labelWrongCredentials.setText("Username or Password entered is Incorrect.");
-              }
-      			} catch (NoSuchAlgorithmException e1)
-            {
-      				e1.printStackTrace();
-      			}
-            */
-
+          try {
+            String url_open = "http://localhost/phpmyadmin/sql.php?server=1&db=hotel_management&table=booking&pos=0";
+            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url_open));
+          } catch (Exception urlException) {
+          }
+        }
+        else if (s.equals("<html>"+"View<br>Hotels"+"</html>")) {
+          try {
+            String url_open = "http://localhost/phpmyadmin/sql.php?server=1&db=hotel_management&table=room_details&pos=0";
+            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url_open));
+          } catch (Exception urlException) {
+          }
 
         }
-        else if (s.equals("View Bookings")) {
-
-            /*
-
-            try
-            {
-              if (validateUser.validate(userNameField.getText(), password ))
-              {
-                MainPage.main(new String[] {userNameField.getText()});
-              }
-              else
-              {
-                labelWrongCredentials.setText("Username or Password entered is Incorrect.");
-              }
-      			} catch (NoSuchAlgorithmException e1)
-            {
-      				e1.printStackTrace();
-      			}
-            */
-
-
+        else if (s.equals("<html>"+"View<br>Users"+"</html>")) {
+          try {
+            String url_open = "http://localhost/phpmyadmin/sql.php?server=1&db=hotel_management&table=users&pos=0";
+            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url_open));
+          } catch (Exception urlException) {
+          }
         }
-        else if (s.equals("<html>"+"Edit<br>Hotels"+"</html>")) {
-
-            /*
-
-            try
-            {
-              if (validateUser.validate(userNameField.getText(), password ))
-              {
-                MainPage.main(new String[] {userNameField.getText()});
-              }
-              else
-              {
-                labelWrongCredentials.setText("Username or Password entered is Incorrect.");
-              }
-      			} catch (NoSuchAlgorithmException e1)
-            {
-      				e1.printStackTrace();
-      			}
-            */
-
-
-        }
-        else if (s.equals("<html>"+"Add<br>Hotels"+"</html>")) {
-
-            /*
-
-            try
-            {
-              if (validateUser.validate(userNameField.getText(), password ))
-              {
-                MainPage.main(new String[] {userNameField.getText()});
-              }
-              else
-              {
-                labelWrongCredentials.setText("Username or Password entered is Incorrect.");
-              }
-      			} catch (NoSuchAlgorithmException e1)
-            {
-      				e1.printStackTrace();
-      			}
-            */
-
-
+        else if (s.equals("<html>"+"View<br>Ratings"+"</html>")) {
+          try {
+            String url_open = "http://localhost/phpmyadmin/sql.php?server=1&db=hotel_management&table=rating&pos=0";
+            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url_open));
+          } catch (Exception urlException) {
+          }
         }
         else if (s.equals("<html>"+"Sign<br>Out"+"</html>"))
         {
